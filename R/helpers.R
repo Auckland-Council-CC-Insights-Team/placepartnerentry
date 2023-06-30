@@ -187,5 +187,53 @@ create_question <- function(json_file, form_id, items){
 
 
 
+#' Generate Hash Key
+#'
+#' @param num_of_forms The number of Google forms
+#'
+#' @return dat
+#' @export
+
+
+generate_hash_key <- function(num_of_forms){
+
+  input <- vector("list", num_of_forms)
+  hash_key <- vector("list", num_of_forms)
+  link <- vector("list", num_of_forms)
+
+
+  orig_link <- "https://docs.google.com/forms/d/e/1FAIpQLScdr7BpeBbszlL1fogpYe4oQZ_nD4ao4Dbd-Sy3hIOQw9FhbA/viewform?usp=pp_url&entry.690249535=FOROFFICEUSEONLY"
+  link2 <- substr(orig_link,1,nchar(orig_link)-16)
+
+
+  for (i in 1:num_of_forms){
+    input[[i]] <- paste(sample(c(0:9,letters,LETTERS),12,replace=T),collapse='')
+    hash_key[[i]] <- digest(input[[i]], algo="sha256")
+    link[[i]] <- paste0(link2,hash_key[[i]])
+  }
+
+
+
+  dat <- data.frame(
+    "Hash_key" = unlist(hash_key),
+    "Link" = unlist(link)
+  )
+
+  return(dat)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
