@@ -10,3 +10,5 @@ library(testthat)
 library(placepartnerentry)
 
 test_check("placepartnerentry")
+
+

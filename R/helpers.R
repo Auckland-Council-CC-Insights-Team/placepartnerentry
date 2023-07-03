@@ -12,6 +12,7 @@ create_token <- function(json_file){
   my_app <- gargle::gargle_oauth_client_from_json(json_file)
   scopes <- "https://www.googleapis.com/auth/forms.body"
   token <-  gargle::credentials_user_oauth2(scopes, app = my_app)
+  saveRDS(token, "token.rds")
 
   return(token)
 }
@@ -24,11 +25,11 @@ create_token <- function(json_file){
 #'
 #' @return resp
 #' @export
-create_form <- function(json_file,title){
+create_form <- function(json_file,title,token){
   form_create <- gargle::request_build(
     method = "POST",
     path = "v1/forms",
-    token = create_token(json_file),
+    token = token,
     base_url = "https://forms.googleapis.com",
     body = list(
       info = list(
@@ -123,7 +124,7 @@ update_form <- function(json_file, form_id){
   form_update_create <- gargle::request_build(
     method = "POST",
     path = paste0("v1/forms/", form_id, ":batchUpdate"),
-    token = create_token(json_file),
+    token = token,
     base_url = "https://forms.googleapis.com",
     body = form_update
   )
@@ -148,7 +149,7 @@ update_form <- function(json_file, form_id){
 #' @return question_resp
 #' @export
 
-create_question <- function(json_file, form_id, items){
+create_question <- function(json_file, form_id, items, token){
   question_resp_list <- list()
   for (i in 1:length(items)) {
     question_dat <- list(
@@ -168,7 +169,7 @@ create_question <- function(json_file, form_id, items){
     question_create <- gargle::request_build(
       method = "POST",
       path = paste0("v1/forms/", form_id, ":batchUpdate"),
-      token = create_token(json_file),
+      token = token,
       base_url = "https://forms.googleapis.com",
       body = question_dat
     )
