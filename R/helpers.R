@@ -196,14 +196,12 @@ create_question <- function(json_file, form_id, items, token){
 #' @export
 
 
-generate_hash_key <- function(num_of_forms){
+generate_hash_key <- function(num_of_forms, orig_link){
 
   input <- vector("list", num_of_forms)
   hash_key <- vector("list", num_of_forms)
   link <- vector("list", num_of_forms)
 
-
-  orig_link <- "https://docs.google.com/forms/d/e/1FAIpQLScdr7BpeBbszlL1fogpYe4oQZ_nD4ao4Dbd-Sy3hIOQw9FhbA/viewform?usp=pp_url&entry.690249535=FOROFFICEUSEONLY"
   link2 <- substr(orig_link,1,nchar(orig_link)-16)
 
 
