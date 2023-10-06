@@ -4,7 +4,7 @@
 \alias{generate_hash_key}
 \title{Generate Hash Key}
 \usage{
-generate_hash_key(num_of_forms)
+generate_hash_key(num_of_forms, orig_link)
 }
 \arguments{
 \item{num_of_forms}{The number of Google forms}
